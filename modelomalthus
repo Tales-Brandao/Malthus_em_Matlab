@@ -1,0 +1,34 @@
+#Inserção das amostras
+t=[3 3.5 4 4.5 5 5.5 6 6.5 7 7.5 8 8.5 9 ]
+P=[21.7 22.5 23.3 24 24.7 25.4 26 26.6 27.1 27.6 28.1 28.5 28.9]
+#somatórios
+tt=sum(t)
+PP=sum(P)
+ttP=t*P'
+tt2=sum(t.^2)
+n=size(P)
+m=n[2]
+#sistema na forma matricial
+A=[tt tt2;m tt]
+B=[ttP; PP]
+X=inv(A)*B
+#resultados
+a=exp(X[1])
+b=X[2]
+#escrevendo a equação
+Sm=tt/m
+Vm=PP/m
+K=ones(1,m)
+sm=K*Sm
+vm=K*Vm
+sn=t-sm
+vn=P-vm
+C=sn*vn'
+Vs=sqrt(sum((t-sm).^2))
+Vv=sqrt(sum((P-vm).^2))
+r=C/(Vs*Vv)
+R=r^2
+#Gráficos
+using Plots
+plotly()
+plot((t,P),layout = 4)
